@@ -43,7 +43,7 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -98,9 +98,9 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;PA_BUILD_SHARED_LIBRARY;PA_USE_WASAPI;PA_USE_WMME;PA_USE_DS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_WINDOWS;_USRDLL;PA_BUILD_SHARED_LIBRARY;PA_USE_WASAPI;PA_USE_WMME;PA_USE_DS;PA_USE_ASIO=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\include;..\src\common;..\src\os\win;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;..\src\common;..\src\os\win;..\..\ASIOSDK2;..\..\ASIOSDK2\host;..\..\ASIOSDK2\host\pc;..\..\ASIOSDK2\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -115,9 +115,9 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;PA_BUILD_SHARED_LIBRARY;PA_USE_WASAPI;PA_USE_WMME;PA_USE_DS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_WINDOWS;_USRDLL;PA_BUILD_SHARED_LIBRARY;PA_USE_WASAPI;PA_USE_WMME;PA_USE_DS;PA_USE_ASIO=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\include;..\src\common;..\src\os\win;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;..\src\common;..\src\os\win;..\..\ASIOSDK2;..\..\ASIOSDK2\host;..\..\ASIOSDK2\host\pc;..\..\ASIOSDK2\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -132,9 +132,10 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_WINDOWS;_USRDLL;PA_BUILD_SHARED_LIBRARY;PA_USE_WASAPI;PA_USE_WMME;PA_USE_DS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;_WINDOWS;_USRDLL;PA_BUILD_SHARED_LIBRARY;PA_USE_WASAPI;PA_USE_WMME;PA_USE_DS;PA_USE_ASIO=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\include;..\src\common;..\src\os\win;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;..\src\common;..\src\os\win;..\..\ASIOSDK2;..\..\ASIOSDK2\host;..\..\ASIOSDK2\host\pc;..\..\ASIOSDK2\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -149,9 +150,9 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;PA_BUILD_SHARED_LIBRARY;PA_USE_WASAPI;PA_USE_WMME;PA_USE_DS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NDEBUG;_WINDOWS;_USRDLL;PA_BUILD_SHARED_LIBRARY;PA_USE_WASAPI;PA_USE_WMME;PA_USE_DS;PA_USE_ASIO=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\include;..\src\common;..\src\os\win;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;..\src\common;..\src\os\win;..\..\ASIOSDK2;..\..\ASIOSDK2\host;..\..\ASIOSDK2\host\pc;..\..\ASIOSDK2\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -164,6 +165,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\include\portaudio.h" />
+    <ClInclude Include="..\include\pa_asio.h" />
     <ClInclude Include="..\include\pa_win_wasapi.h" />
     <ClInclude Include="..\include\pa_win_wmme.h" />
     <ClInclude Include="..\include\pa_win_ds.h" />
@@ -197,6 +199,11 @@
     <ClCompile Include="..\src\common\pa_ringbuffer.c" />
     <ClCompile Include="..\src\common\pa_stream.c" />
     <ClCompile Include="..\src\common\pa_trace.c" />
+    <ClCompile Include="..\src\hostapi\asio\pa_asio.cpp" />
+    <ClCompile Include="..\src\hostapi\asio\iasiothiscallresolver.cpp" />
+    <ClCompile Include="..\..\ASIOSDK2\common\asio.cpp" />
+    <ClCompile Include="..\..\ASIOSDK2\host\asiodrivers.cpp" />
+    <ClCompile Include="..\..\ASIOSDK2\host\pc\asiolist.cpp" />
     <ClCompile Include="..\src\hostapi\dsound\pa_win_ds.c" />
     <ClCompile Include="..\src\hostapi\dsound\pa_win_ds_dynlink.c" />
     <ClCompile Include="..\src\hostapi\wasapi\pa_win_wasapi.c" />
@@ -205,6 +212,7 @@
     <ClCompile Include="..\src\os\win\pa_win_coinitialize.c" />
     <ClCompile Include="..\src\os\win\pa_win_hostapis.c" />
     <ClCompile Include="..\src\os\win\pa_win_util.c" />
+    <ClCompile Include="..\src\os\win\pa_win_version.c" />
     <ClCompile Include="..\src\os\win\pa_win_waveformat.c" />
     <ClCompile Include="..\src\os\win\pa_x86_plain_converters.c" />
   </ItemGroup>
