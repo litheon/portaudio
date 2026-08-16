@@ -56,3 +56,5 @@ CMakeSettings.json
 
 # Common build directories of users and VSCode
 build*
+
+msvc/portaudio.vcxproj.user
